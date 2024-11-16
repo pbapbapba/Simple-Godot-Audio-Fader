@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsfofawwnov8u"]
+
+[ext_resource type="Script" path="res://scripts/crossfade.gd" id="1_oa1r0"]
+[ext_resource type="AudioStream" uid="uid://b6divi5843h2" path="res://audio/simple_loop_1_110bpm.mp3" id="2_uib3r"]
+[ext_resource type="AudioStream" uid="uid://bgnkx87rvawho" path="res://audio/simple_loop_2_170bpm.mp3" id="3_0w5bt"]
+
+[node name="CrossfadeScene" type="Node" node_paths=PackedStringArray("audio_1", "audio_2")]
+script = ExtResource("1_oa1r0")
+audio_1 = NodePath("Audio1")
+audio_2 = NodePath("Audio2")
+
+[node name="Audio1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_uib3r")
+autoplay = true
+
+[node name="Audio2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0w5bt")
+volume_db = -80.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 350
+theme_override_constants/margin_bottom = 150
+
+[node name="Title" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "Crossfade Scene
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="Fade1To2" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Audio 1 to Audio 2"
+
+[node name="Fade2To1" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Audio 2 to Audio 1"
+
+[node name="Separator" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FadeScene" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Switch to Fade Scene"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Fade1To2" to="." method="_on_fade_1_to_2_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Fade2To1" to="." method="_on_fade_2_to_1_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/FadeScene" to="." method="_on_fade_scene_pressed"]

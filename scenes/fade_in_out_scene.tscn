@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://ri1nu4r8mfp5"]
+
+[ext_resource type="Script" path="res://scripts/fade_in_out.gd" id="1_8yl70"]
+[ext_resource type="AudioStream" uid="uid://bgnkx87rvawho" path="res://audio/simple_loop_2_170bpm.mp3" id="2_ub03q"]
+
+[node name="FadeInOutScene" type="Node" node_paths=PackedStringArray("audio_stream_player")]
+script = ExtResource("1_8yl70")
+audio_stream_player = NodePath("Audio1")
+
+[node name="Audio1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ub03q")
+autoplay = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 350
+theme_override_constants/margin_bottom = 150
+
+[node name="Titel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "Fade Scene"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="FadeOut" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Fade Out"
+
+[node name="FadeIn" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Fade In"
+
+[node name="Separator" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CrossfadeScene" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Switch to Crossfade Scene"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/FadeOut" to="." method="_on_fade_out_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/FadeIn" to="." method="_on_fade_in_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CrossfadeScene" to="." method="_on_crossfade_scene_pressed"]
